@@ -1,4 +1,4 @@
-const { Kafka } = require('kafkajs');
+const {Kafka} = require('kafkajs');
 
 class KafkaService {
     constructor() {
@@ -6,7 +6,7 @@ class KafkaService {
             clientId: 'trader_app',
             brokers: ['localhost:9092']
         });
-        this.consumer = this.kafka.consumer({ groupId: 'trader_group' });
+        this.consumer = this.kafka.consumer({groupId: 'trader_group'});
         this.producer = this.kafka.producer();
     }
 
@@ -17,9 +17,9 @@ class KafkaService {
     }
 
     async subscribeToTraderIds() {
-        await this.consumer.subscribe({ topic: 'trader_ids' });
+        await this.consumer.subscribe({topic: 'trader_ids'});
         await this.consumer.run({
-            eachMessage: async ({ topic, partition, message }) => {
+            eachMessage: async ({topic, partition, message}) => {
                 const traderId = message.value.toString();
                 console.log(`Received trader ID: ${traderId}`);
                 // You can handle the received trader ID here
@@ -31,7 +31,7 @@ class KafkaService {
         try {
             await this.producer.send({
                 topic,
-                messages: [{ key, value }]
+                messages: [{key, value}]
             });
             console.log(`Sent message to ${topic}`);
         } catch (error) {
@@ -49,9 +49,9 @@ class KafkaService {
     }
 
     async listenForMessages(traderId, callback) {
-        await this.consumer.subscribe({ topic: 'messages' });
+        await this.consumer.subscribe({topic: 'messages'});
         await this.consumer.run({
-            eachMessage: async ({ topic, partition, message }) => {
+            eachMessage: async ({topic, partition, message}) => {
                 const key = message.key.toString();
                 const value = message.value.toString();
                 if (key === traderId) {
