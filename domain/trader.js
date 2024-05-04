@@ -1,4 +1,11 @@
+const Verifier = require('./verifier');
+
 class Trader {
+    constructor(id) {
+        this.id = id;
+        this.verifier = new Verifier();
+    }
+
     printTradersInfo() {
         console.log("trader info");
     }
