@@ -1,4 +1,4 @@
-class TraderApp {
+class Trader {
     printTradersInfo() {
         console.log("trader info");
     }
@@ -7,4 +7,4 @@ class TraderApp {
         console.log("coin with service", service);
     }
 }
-module.exports = TraderApp;
+module.exports = Trader;
