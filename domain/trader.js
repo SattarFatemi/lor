@@ -25,4 +25,5 @@ class Trader {
         // TODO
     }
 }
+
 module.exports = Trader;

@@ -1,4 +1,4 @@
-const { Command } = require('commander');
+const {Command} = require('commander');
 
 class CLI {
     constructor(traderApp) {
@@ -15,7 +15,7 @@ class CLI {
     }
 
     handleCommand(command, args) {
-        switch(command) {
+        switch (command) {
             case 'info':
                 this.trader.printTradersInfo();
                 break;
