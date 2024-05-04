@@ -23,7 +23,8 @@ class CLI {
                 this.trader.createCoin(...args);
                 break;
             case 'exit':
-                process.exit();
+                console.log('Exiting...');
+                process.exit(0);
                 break;
             default:
                 console.error('Invalid command.');
