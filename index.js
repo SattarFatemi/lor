@@ -1,8 +1,9 @@
 const CLI = require('./presentation/cli');
 const UI = require('./presentation/ui');
-const TraderApp = require('./domain/traderApp');
+const TraderApp = require('./domain/trader');
 
-const traderApp = new TraderApp();
+const id = 123; // TODO
+const traderApp = new TraderApp(id);
 const cli = new CLI(traderApp);
 const ui = new UI(cli);
 ui.start();
