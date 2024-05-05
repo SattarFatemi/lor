@@ -16,17 +16,6 @@ class KafkaService {
         console.log('Connected to Kafka');
     }
 
-    async subscribeToTraderIds() {
-        await this.consumer.subscribe({topic: 'trader_ids'});
-        await this.consumer.run({
-            eachMessage: async ({topic, partition, message}) => {
-                const traderId = message.value.toString();
-                console.log(`Received trader ID: ${traderId}`);
-                // You can handle the received trader ID here
-            }
-        });
-    }
-
     async sendMessage(topic, key, value) {
         try {
             await this.producer.send({
