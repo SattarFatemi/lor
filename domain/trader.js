@@ -2,21 +2,22 @@ const Verifier = require('./verifier');
 const Coin = require('./models/Coin');
 const CooperationRing = require('./models/CooperationRing');
 const FractalRing = require('./models/FractalRing');
-const traderRepository = require('../repository/trader');
+const TraderRepository = require('../repository/trader');
 
-
-function getTraderId() {
-    return traderRepository.getIdForNewTrader();
-}
 
 class Trader {
-    constructor() {
-        this.id = getTraderId();
+    constructor(id) {
+        this.id = id;
         this.balance = 0;
         this.verifier = new Verifier();
     }
 
+    static async getTraderId() {
+        return TraderRepository.getIdForNewTrader();
+    }
+
     printTradersInfo() {
+        console.log(this);
         console.log(`trader info:\nid: ${this.id}`);
     }
 
