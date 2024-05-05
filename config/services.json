@@ -1,0 +1,18 @@
+[
+  {
+    "name": "type",
+    "price": 12000
+  },
+  {
+    "name": "video streaming",
+    "price": 29000
+  },
+  {
+    "name": "storage",
+    "price": 400000
+  },
+  {
+    "name": "CPU",
+    "price": 6500000
+  }
+]
