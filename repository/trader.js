@@ -7,7 +7,7 @@ class Trader {
     }
 
     static async broadcastNewTraderId(id) {
-        await kafkaService.sendMessage(kafkaConfig.topics.TRADER_IDS, id, id);
+        await kafkaService.sendMessage(kafkaConfig.topics.TRADER_IDS, id.toString(), id.toString());
     }
 
     static async broadcastNewCoin(coin) {

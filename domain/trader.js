@@ -13,7 +13,9 @@ class Trader {
     }
 
     static async getTraderId() {
-        return TraderRepository.getIdForNewTrader();
+        const id = await TraderRepository.getIdForNewTrader();
+        await TraderRepository.broadcastNewTraderId(id);
+        return id;
     }
 
     printTradersInfo() {
