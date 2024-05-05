@@ -1,4 +1,8 @@
 const Verifier = require('./verifier');
+const Coin = require('./models/Coin');
+const CooperationRing = require('./models/CooperationRing');
+const FractalRing = require('./models/FractalRing');
+
 
 class Trader {
     constructor(id) {
@@ -10,9 +14,15 @@ class Trader {
         console.log(`trader info:\nid: ${this.id}`);
     }
 
-    createCoin(service) {
-        console.log(`creating coin with service ${service}...`);
-        // TODO
+    createCoin(type, serviceName) {
+        // TODO validate type and service
+        console.log(`creating coin with type ${type} and service ${serviceName}...`);
+        const coin = new Coin(
+            1,
+            this.id,
+            serviceName,
+            type,
+        );
     }
 
     createCooperationRing() {
