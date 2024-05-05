@@ -7,7 +7,7 @@ class Trader {
     }
 
     printTradersInfo() {
-        console.log("trader info");
+        console.log(`trader info:\nid: ${this.id}`);
     }
 
     createCoin(service) {
