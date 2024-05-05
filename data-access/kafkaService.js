@@ -7,7 +7,7 @@ class KafkaService {
             brokers: ['localhost:9092']
         });
         this.consumer = this.kafka.consumer({groupId: 'trader_group'});
-        this.producer = this.kafka.producer();
+        this.producer = this.kafka.producer;
     }
 
     async connect() {
