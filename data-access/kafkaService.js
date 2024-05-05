@@ -2,24 +2,33 @@ const {Kafka} = require('kafkajs');
 const kafkaConfig = require('../config/kafkaConfig');
 
 class KafkaService {
+    static let
+    instance;
+
     constructor() {
-        this.kafka = new Kafka({
+        instance.kafka = new Kafka({
             clientId: kafkaConfig.CLIENT_ID,
             brokers: kafkaConfig.BROKERS,
         });
-        this.consumer = this.kafka.consumer({groupId: kafkaConfig.CONSUMER_GROUP_ID});
-        this.producer = this.kafka.producer;
+        instance.consumer = instance.kafka.consumer({groupId: kafkaConfig.CONSUMER_GROUP_ID});
+        instance.producer = instance.kafka.producer;
+    }
+
+    static getInstance() {
+        if (!instance) {
+            instance = new KafkaService();
+        }
+        return instance;
     }
 
     async connect() {
-        await this.consumer.connect();
-        await this.producer.connect();
-        console.log('Connected to Kafka');
+        await instance.consumer.connect();
+        await instance.producer.connect();
     }
 
     async sendMessage(topic, key, value) {
         try {
-            await this.producer.send({
+            await instance.producer.send({
                 topic,
                 messages: [{key, value}]
             });
@@ -31,7 +40,7 @@ class KafkaService {
 
     async sendMessageToTrader(traderId, message) {
         try {
-            await this.sendMessage(traderId, 'trader_message', message);
+            await instance.sendMessage(traderId, 'trader_message', message);
             console.log(`Sent message to trader with ID ${traderId}`);
         } catch (error) {
             console.error(`Error sending message to trader with ID ${traderId}:`, error);
@@ -39,17 +48,31 @@ class KafkaService {
     }
 
     async listenForMessages(traderId, callback) {
-        await this.consumer.subscribe({topic: 'messages'});
-        await this.consumer.run({
+        await instance.consumer.subscribe({topic: 'messages'});
+        await instance.consumer.run({
             eachMessage: async ({topic, partition, message}) => {
                 const key = message.key.toString();
                 const value = message.value.toString();
                 if (key === traderId) {
-                    // Message is for this trader
+                    // Message is for instance trader
                     callback(value);
                 }
             }
         });
+    }
+
+    async getMaxTraderIdFromTopic() {
+        let maxTraderId = null;
+        await this.consumer.subscribe({kafkaConfig.topics.TRADER_IDS});
+        await this.consumer.run({
+            eachMessage: async ({topic, partition, message}) => {
+                const traderId = parseInt(message.value.toString(), 10);
+                if (maxTraderId === null || traderId > maxTraderId) {
+                    maxTraderId = traderId;
+                }
+            }
+        });
+        return maxTraderId;
     }
 }
 

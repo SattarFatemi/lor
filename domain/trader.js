@@ -2,15 +2,17 @@ const Verifier = require('./verifier');
 const Coin = require('./models/Coin');
 const CooperationRing = require('./models/CooperationRing');
 const FractalRing = require('./models/FractalRing');
+const traderRepository = require('../repository/trader');
 
 
 function getTraderId() {
-    // TODO
+    return traderRepository.getIdForNewTrader();
 }
 
 class Trader {
     constructor() {
         this.id = getTraderId();
+        this.balance = 0;
         this.verifier = new Verifier();
     }
 

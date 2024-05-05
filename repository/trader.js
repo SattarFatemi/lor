@@ -6,6 +6,10 @@ class Trader {
         this.kafka = kafka;
     }
 
+    async getIdForNewTrader() {
+        return this.kafka.getMaxTraderIdFromTopic() + 1;
+    }
+
     broadcastNewCoin(coin) {
         this.kafka.sendMessage(kafkaConfig.topics.COINS, coin.id, coin);
     }
