@@ -4,9 +4,13 @@ const CooperationRing = require('./models/CooperationRing');
 const FractalRing = require('./models/FractalRing');
 
 
+function getTraderId() {
+    // TODO
+}
+
 class Trader {
-    constructor(id) {
-        this.id = id;
+    constructor() {
+        this.id = getTraderId();
         this.verifier = new Verifier();
     }
 
