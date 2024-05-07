@@ -7,17 +7,25 @@ function findServiceByName(serviceName) {
             return service;
         }
     }
-    // TODO raise error
+    throw new Error("Service not found");
 }
 
 class Coin {
-    constructor(id, ownerId, serviceName, type) {
+    constructor(ownerId, serviceName, type) {
         const service = findServiceByName(serviceName);
-        this.id = id;
         this.ownerId = ownerId;
         this.amountBasedOnOneUnit = service.price;
         this.status = coinStatus.NEW;
         this.serviceName = serviceName;
+    }
+
+    toDB() {
+        return {
+            ownerId: this.ownerId,
+            amountBasedOnOneUnit: this.amountBasedOnOneUnit,
+            status: this.status,
+            serviceName: this.serviceName,
+        }
     }
 }
 

@@ -1,9 +1,13 @@
+const {v4: uuidv4} = require('uuid');
 const Verifier = require('./verifier');
+const Validator = require('../util/validator');
+const coinStatus = require('../config/coinStatus');
+const coinType = require('../config/coinType');
+const services = require('../config/services.json');
 const Coin = require('./models/Coin');
 const CooperationRing = require('./models/CooperationRing');
 const FractalRing = require('./models/FractalRing');
 const TraderRepository = require('../repository/trader');
-const {v4: uuidv4} = require('uuid');
 
 
 class Trader {
@@ -22,14 +26,18 @@ class Trader {
     }
 
     createCoin(type, serviceName) {
-        // TODO validate type and service
-        console.log(`creating coin with type ${type} and service ${serviceName}...`);
-        const coin = new Coin(
-            1,
-            this.id,
-            serviceName,
-            type,
-        );
+        try {
+            Validator.checkPossibleValue(type, Object.values(coinType));
+            Validator.checkPossibleValue(serviceName, services.map(service => service.name));
+            console.log(`creating coin with type ${type} and service ${serviceName}...`);
+            const coin = new Coin(
+                this.id,
+                serviceName,
+                type,
+            );
+        } catch (error) {
+            console.log("Could not create the coin:", error);
+        }
     }
 
     createCooperationRing() {
