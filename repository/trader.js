@@ -27,12 +27,6 @@ class Trader {
         kafkaService.listen(kafkaConfig.topics.FRACTAL_RINGS, handleNewFractalRing);
     }
 
-    static async getIdForNewTrader() {
-        const db = await mongoService.connect();
-        console.log(db);
-        // return (await kafkaService.getMaxTraderIdFromTopic()) + 1;
-    }
-
     static async broadcastNewTraderId(id) {
         await kafkaService.sendMessage(kafkaConfig.topics.TRADER_IDS, id.toString(), id.toString());
     }

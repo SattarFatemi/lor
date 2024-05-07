@@ -13,7 +13,7 @@ class Trader {
         this.verifier = new Verifier();
     }
 
-    static async getTraderId() {
+    static getTraderId() {
         return uuidv4();
     }
 

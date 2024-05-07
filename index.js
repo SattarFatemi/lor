@@ -29,7 +29,7 @@ async function connectToMongo(traderId) {
 
 async function main() {
     await connectToKafka();
-    const traderId = await TraderApp.getTraderId();
+    const traderId = TraderApp.getTraderId();
     const trader = new TraderApp(traderId);
     await connectToMongo();
     const cli = new CLI(trader);
