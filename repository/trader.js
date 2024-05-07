@@ -1,9 +1,36 @@
 const kafkaConfig = require('../config/kafkaConfig');
 const kafkaService = require('../data-access/kafkaService').getInstance();
+const mongoService = require('../data-access/mongodbService');
+
+
+function handleNewTrader() {
+    // TODO
+}
+
+function handleNewCoin(coinString) {
+    // TODO
+}
+
+function handleNewCooperationRing() {
+    // TODO
+}
+
+function handleNewFractalRing() {
+    // TODO
+}
 
 class Trader {
+    static startListening() {
+        kafkaService.listen(kafkaConfig.topics.TRADERS, handleNewTrader);
+        kafkaService.listen(kafkaConfig.topics.COINS, handleNewCoin);
+        kafkaService.listen(kafkaConfig.topics.COOPERATION_RINGS, handleNewCooperationRing);
+        kafkaService.listen(kafkaConfig.topics.FRACTAL_RINGS, handleNewFractalRing);
+    }
+
     static async getIdForNewTrader() {
-        return (await kafkaService.getMaxTraderIdFromTopic()) + 1;
+        const db = await mongoService.connect();
+        console.log(db);
+        // return (await kafkaService.getMaxTraderIdFromTopic()) + 1;
     }
 
     static async broadcastNewTraderId(id) {

@@ -3,6 +3,7 @@ const Coin = require('./models/Coin');
 const CooperationRing = require('./models/CooperationRing');
 const FractalRing = require('./models/FractalRing');
 const TraderRepository = require('../repository/trader');
+const {v4: uuidv4} = require('uuid');
 
 
 class Trader {
@@ -13,9 +14,7 @@ class Trader {
     }
 
     static async getTraderId() {
-        const id = await TraderRepository.getIdForNewTrader();
-        await TraderRepository.broadcastNewTraderId(id);
-        return id;
+        return uuidv4();
     }
 
     printTradersInfo() {

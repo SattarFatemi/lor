@@ -7,6 +7,6 @@ module.exports = {
         COINS: "coins",
         COOPERATION_RINGS: "cooperation_rings",
         FRACTAL_RINGS: "fractal_rings",
-        TRADER_IDS: "trader_ids",
+        TRADERS: "traders",
     }
 };

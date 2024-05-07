@@ -44,6 +44,17 @@ class KafkaService {
         }
     }
 
+    async listen(topic, callback) {
+        await instance.consumer.subscribe({topic});
+        await instance.consumer.run({
+            eachMessage: async ({topic, partition, message}) => {
+                const key = message.key.toString();
+                const value = message.value.toString();
+                callback(value);
+            }
+        });
+    }
+
     async listenForMessages(traderId, callback) {
         await instance.consumer.subscribe({topic: 'messages'});
         await instance.consumer.run({
@@ -60,15 +71,8 @@ class KafkaService {
 
     async getMaxTraderIdFromTopic() {
         let maxTraderId = 0;
-        await this.consumer.subscribe({topic: kafkaConfig.topics.TRADER_IDS});
-        this.consumer.run({
-            eachMessage: async ({topic, partition, message}) => {
-                const traderId = parseInt(message.value.toString(), 10);
-                if (maxTraderId === null || traderId > maxTraderId) {
-                    maxTraderId = traderId;
-                }
-            }
-        });
+        await instance.consumer.subscribe({topic: kafkaConfig.topics.TRADER_IDS});
+        // TODO
         return maxTraderId;
     }
 }
