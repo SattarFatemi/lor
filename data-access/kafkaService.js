@@ -1,7 +1,6 @@
 const {Kafka} = require('kafkajs');
 const kafkaConfig = require('../config/kafkaConfig');
 
-
 let instance;
 
 class KafkaService {
@@ -12,7 +11,8 @@ class KafkaService {
                 clientId: kafkaConfig.CLIENT_ID,
                 brokers: kafkaConfig.BROKERS,
             });
-            instance.consumer = instance.kafka.consumer({groupId: kafkaConfig.CONSUMER_GROUP_ID});
+            instance.consumerGroupId = `group-${Math.random().toString(36).substr(2, 9)}`;
+            instance.consumer = instance.kafka.consumer({groupId: instance.consumerGroupId});
             instance.producer = instance.kafka.producer();
         }
         return instance;
@@ -67,13 +67,6 @@ class KafkaService {
                 }
             }
         });
-    }
-
-    async getMaxTraderIdFromTopic() {
-        let maxTraderId = 0;
-        await instance.consumer.subscribe({topic: kafkaConfig.topics.TRADER_IDS});
-        // TODO
-        return maxTraderId;
     }
 }
 
