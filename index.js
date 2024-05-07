@@ -1,6 +1,7 @@
 const CLI = require('./presentation/cli');
 const UI = require('./presentation/ui');
 const TraderApp = require('./domain/trader');
+const TraderRepository = require('./repository/trader');
 const KafkaService = require('./data-access/kafkaService');
 const MongoService = require('./data-access/mongodbService');
 
@@ -31,6 +32,8 @@ async function main() {
     await connectToKafka();
     const traderId = TraderApp.getTraderId();
     const trader = new TraderApp(traderId);
+    TraderRepository.broadcastNewTrader(trader);
+    TraderRepository.startListening();
     await connectToMongo();
     const cli = new CLI(trader);
     const ui = new UI(cli);

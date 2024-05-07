@@ -3,19 +3,19 @@ const kafkaService = require('../data-access/kafkaService').getInstance();
 const mongoService = require('../data-access/mongodbService');
 
 
-function handleNewTrader() {
-    // TODO
+function handleNewTrader(traderString) {
+    console.log('New trader detected:', traderString);
 }
 
 function handleNewCoin(coinString) {
     // TODO
 }
 
-function handleNewCooperationRing() {
+function handleNewCooperationRing(cooperationRingString) {
     // TODO
 }
 
-function handleNewFractalRing() {
+function handleNewFractalRing(fractalRingString) {
     // TODO
 }
 
@@ -27,8 +27,8 @@ class Trader {
         kafkaService.listen(kafkaConfig.topics.FRACTAL_RINGS, handleNewFractalRing);
     }
 
-    static async broadcastNewTraderId(id) {
-        await kafkaService.sendMessage(kafkaConfig.topics.TRADER_IDS, id.toString(), id.toString());
+    static async broadcastNewTrader(trader) {
+        await kafkaService.sendMessage(kafkaConfig.topics.TRADERS, trader.id.toString(), JSON.stringify(trader));
     }
 
     static async broadcastNewCoin(coin) {

@@ -19,7 +19,6 @@ class Trader {
 
     printTradersInfo() {
         console.log(this);
-        console.log(`trader info:\nid: ${this.id}`);
     }
 
     createCoin(type, serviceName) {
