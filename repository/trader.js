@@ -1,6 +1,7 @@
 const kafkaConfig = require('../config/kafkaConfig');
 const kafkaService = require('../data-access/kafkaService').getInstance();
 const TraderDA = require('../data-access/trader');
+const CoinDA = require('../data-access/coin');
 
 
 function handleNewTrader(traderString) {
@@ -26,6 +27,10 @@ class Trader {
         kafkaService.listen(kafkaConfig.topics.COINS, handleNewCoin);
         kafkaService.listen(kafkaConfig.topics.COOPERATION_RINGS, handleNewCooperationRing);
         kafkaService.listen(kafkaConfig.topics.FRACTAL_RINGS, handleNewFractalRing);
+    }
+
+    static async saveCoin(coin) {
+        return CoinDA.insert(coin);
     }
 
     static async broadcastNewTrader(trader) {

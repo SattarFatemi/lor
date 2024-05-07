@@ -35,6 +35,7 @@ class Trader {
                 serviceName,
                 type,
             );
+            TraderRepository.saveCoin(coin.toDB());
         } catch (error) {
             console.log("Could not create the coin:", error);
         }
