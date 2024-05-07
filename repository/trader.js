@@ -1,10 +1,11 @@
 const kafkaConfig = require('../config/kafkaConfig');
 const kafkaService = require('../data-access/kafkaService').getInstance();
-const mongoService = require('../data-access/mongodbService');
+const TraderDA = require('../data-access/trader');
 
 
 function handleNewTrader(traderString) {
     console.log('New trader detected:', traderString);
+    TraderDA.insert(JSON.parse(traderString));
 }
 
 function handleNewCoin(coinString) {

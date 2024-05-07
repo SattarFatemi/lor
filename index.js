@@ -34,7 +34,7 @@ async function main() {
     const trader = new TraderApp(traderId);
     TraderRepository.broadcastNewTrader(trader);
     TraderRepository.startListening();
-    await connectToMongo();
+    await connectToMongo(traderId);
     const cli = new CLI(trader);
     const ui = new UI(cli);
     ui.start();
