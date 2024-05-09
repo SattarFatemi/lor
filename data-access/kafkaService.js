@@ -46,7 +46,7 @@ class KafkaService {
 
     async listen(listenList) {
         for (const topic of listenList.map(obj => obj.topic)) {
-            await instance.consumer.subscribe({topic});
+            await instance.consumer.subscribe({topic, fromBeginning: true});
         }
         await instance.consumer.run({
             eachMessage: async ({topic, partition, message}) => {
