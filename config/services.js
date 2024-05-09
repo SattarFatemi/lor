@@ -1,4 +1,4 @@
-[
+module.exports = [
   {
     "name": "type",
     "price": 12000
@@ -15,4 +15,4 @@
     "name": "CPU",
     "price": 6500000
   }
-]
+];

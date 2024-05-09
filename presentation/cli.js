@@ -14,13 +14,13 @@ class CLI {
             .parse(process.argv);
     }
 
-    handleCommand(command, args) {
+    async handleCommand(command, args) {
         switch (command) {
             case 'info':
-                this.trader.printTradersInfo();
+                await this.trader.printTradersInfo();
                 break;
             case 'create-coin':
-                this.trader.createCoin(...args);
+                await this.trader.createCoin(...args);
                 break;
             case 'exit':
                 console.log('Exiting...');

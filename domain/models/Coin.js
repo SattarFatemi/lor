@@ -1,14 +1,6 @@
-const servicesConfig = require('../../config/services.json');
+const servicesConfig = require('../../config/services.js');
 const coinStatus = require('../../config/coinStatus');
 
-function findServiceByName(serviceName) {
-    for (const service of servicesConfig) {
-        if (service.name == serviceName) {
-            return service;
-        }
-    }
-    throw new Error("Service not found");
-}
 
 class Coin {
     constructor(ownerId, serviceName, type) {

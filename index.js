@@ -37,7 +37,7 @@ async function main() {
     await connectToMongo(traderId);
     const cli = new CLI(trader);
     const ui = new UI(cli);
-    ui.start();
+    await ui.start();
 }
 
 main();
