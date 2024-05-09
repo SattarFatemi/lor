@@ -14,6 +14,10 @@ const coinSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    type: {
+        type: String,
+        required: true,
+    },
     serviceName: {
         type: String,
         required: true,

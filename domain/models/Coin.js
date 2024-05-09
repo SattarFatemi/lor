@@ -9,6 +9,7 @@ class Coin {
         this.ownerId = ownerId;
         this.amountBasedOnOneUnit = service.price;
         this.status = coinStatus.NEW;
+        this.type = type;
         this.serviceName = serviceName;
     }
 
@@ -17,6 +18,7 @@ class Coin {
             ownerId: this.ownerId,
             amountBasedOnOneUnit: this.amountBasedOnOneUnit,
             status: this.status,
+            type: this.type,
             serviceName: this.serviceName,
         }
     }

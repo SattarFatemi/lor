@@ -8,6 +8,7 @@ class CoinDataAccess {
                 ownerId: coin.ownerId,
                 amountBasedOnOneUnit: coin.amountBasedOnOneUnit,
                 status: coin.status,
+                type: coin.type,
                 serviceName: coin.serviceName,
             });
             const savedCoin = await newCoin.save();
