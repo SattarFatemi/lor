@@ -24,10 +24,24 @@ function handleNewFractalRing(fractalRingString) {
 
 class Trader {
     static startListening() {
-        kafkaService.listen(kafkaConfig.topics.TRADERS, handleNewTrader);
-        kafkaService.listen(kafkaConfig.topics.COINS, handleNewCoin);
-        kafkaService.listen(kafkaConfig.topics.COOPERATION_RINGS, handleNewCooperationRing);
-        kafkaService.listen(kafkaConfig.topics.FRACTAL_RINGS, handleNewFractalRing);
+        kafkaService.listen([
+            {
+                topic: kafkaConfig.topics.TRADERS,
+                callback: handleNewTrader
+            },
+            {
+                topic: kafkaConfig.topics.COINS,
+                callback: handleNewCoin
+            },
+            {
+                topic: kafkaConfig.topics.COOPERATION_RINGS,
+                callback: handleNewCooperationRing
+            },
+            {
+                topic: kafkaConfig.topics.FRACTAL_RINGS,
+                callback: handleNewFractalRing
+            },
+        ]);
     }
 
     static async saveCoin(coin) {

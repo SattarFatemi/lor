@@ -44,14 +44,19 @@ class KafkaService {
         }
     }
 
-    async listen(topicToListen, callback) {
-        await instance.consumer.subscribe({topic: topicToListen});
+    async listen(listenList) {
+        for (const topic of listenList.map(obj => obj.topic)) {
+            await instance.consumer.subscribe({topic});
+        }
         await instance.consumer.run({
             eachMessage: async ({topic, partition, message}) => {
-                if (topic !== topicToListen) return; // TODO
                 const key = message.key.toString();
                 const value = message.value.toString();
-                callback(value);
+                for (const obj of listenList) {
+                    if (obj.topic === topic) {
+                        obj.callback(value);
+                    }
+                }
             }
         });
     }
