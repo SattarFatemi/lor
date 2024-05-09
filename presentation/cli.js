@@ -22,6 +22,12 @@ class CLI {
             case 'create-coin':
                 await this.trader.createCoin(...args);
                 break;
+            case 'create-cr':
+                await this.trader.createCooperationRing(...args);
+                break;
+            case 'create-fr':
+                await this.trader.createFractalRing(...args);
+                break;
             case 'exit':
                 console.log('Exiting...');
                 process.exit(0);
