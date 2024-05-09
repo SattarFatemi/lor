@@ -3,14 +3,31 @@ const Coin = require('../models/coin');
 
 class CoinDataAccess {
     static async insert(coin) {
-        try {
-            const newCoin = new Coin({
+        let newCoin;
+        if (coin._id) {
+            const fetchedCoin = await this.fetch(coin._id);
+            if (!fetchedCoin) {
+                newCoin = new Coin({
+                    _id: coin._id,
+                    ownerId: coin.ownerId,
+                    amountBasedOnOneUnit: coin.amountBasedOnOneUnit,
+                    status: coin.status,
+                    type: coin.type,
+                    serviceName: coin.serviceName,
+                });
+            } else {
+                return fetchedCoin._id;
+            }
+        } else {
+            newCoin = new Coin({
                 ownerId: coin.ownerId,
                 amountBasedOnOneUnit: coin.amountBasedOnOneUnit,
                 status: coin.status,
                 type: coin.type,
                 serviceName: coin.serviceName,
             });
+        }
+        try {
             const savedCoin = await newCoin.save();
             return savedCoin._id;
         } catch (error) {
@@ -22,9 +39,6 @@ class CoinDataAccess {
     static async fetch(id) {
         try {
             const coin = await Coin.findById(id);
-            if (!coin) {
-                throw new Error('Coin not found');
-            }
             return coin;
         } catch (error) {
             console.error('Error fetching coin:', error);
