@@ -1,4 +1,4 @@
-const servicesConfig = require('../config/service.js');
+const servicesConfig = require('../config/services.js');
 const errors = require('../config/errors');
 
 

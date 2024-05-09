@@ -10,7 +10,8 @@ function handleNewTrader(traderString) {
 }
 
 function handleNewCoin(coinString) {
-    // TODO
+    console.log('New coin detected:', coinString);
+    CoinDA.insert(JSON.parse(coinString))
 }
 
 function handleNewCooperationRing(cooperationRingString) {
@@ -38,7 +39,7 @@ class Trader {
     }
 
     static async broadcastNewCoin(coin) {
-        await kafkaService.sendMessage(kafkaConfig.topics.COINS, coin.id, coin);
+        await kafkaService.sendMessage(kafkaConfig.topics.COINS, coin._id.toString(), JSON.stringify(coin));
     }
 
     static async broadcastNewCooperationRing(cooperationRing) {

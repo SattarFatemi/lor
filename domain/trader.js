@@ -4,11 +4,12 @@ const Validator = require('../util/validator');
 const coinStatus = require('../config/coinStatus');
 const coinType = require('../config/coinType');
 const services = require('../config/services.js');
+const errors = require('../config/errors');
 const Coin = require('./models/Coin');
 const CooperationRing = require('./models/CooperationRing');
 const FractalRing = require('./models/FractalRing');
 const TraderRepository = require('../repository/trader');
-const errors = require('../config/errors');
+const CoinDA = require('../data-access/coin');
 
 
 class Trader {
@@ -47,9 +48,12 @@ class Trader {
                 serviceName,
                 type,
             );
-            await TraderRepository.saveCoin(coin.toDB());
+            const savedCoinId = await TraderRepository.saveCoin(coin.toDB());
+            const savedCoin = await CoinDA.fetch(savedCoinId);
+            TraderRepository.broadcastNewCoin(savedCoin);
         } catch (error) {
             console.log('could not create the coin.\nreverting balance changes...', error);
+            this.deposit(service.price);
         }
     }
 

@@ -1,10 +1,11 @@
 const servicesConfig = require('../../config/services.js');
 const coinStatus = require('../../config/coinStatus');
+const Util = require('../../util/util');
 
 
 class Coin {
     constructor(ownerId, serviceName, type) {
-        const service = findServiceByName(serviceName);
+        const service = Util.findServiceByName(serviceName);
         this.ownerId = ownerId;
         this.amountBasedOnOneUnit = service.price;
         this.status = coinStatus.NEW;
