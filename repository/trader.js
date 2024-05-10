@@ -48,6 +48,10 @@ class Trader {
         return CoinDA.insert(coin);
     }
 
+    static async saveCooperationRing(cooperationRing) {
+        return CooperationRingDA.insert(cooperationRing);
+    }
+
     static async broadcastNewTrader(trader) {
         await kafkaService.sendMessage(kafkaConfig.topics.TRADERS, trader.id.toString(), JSON.stringify(trader));
     }

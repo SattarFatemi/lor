@@ -14,6 +14,8 @@ class CoinDataAccess {
                     status: coin.status,
                     type: coin.type,
                     serviceName: coin.serviceName,
+                    nextInCooperationRing: coin.nextInCooperationRing,
+                    prevInCooperationRing: coin.prevInCooperationRing,
                 });
             } else {
                 return fetchedCoin._id;
@@ -25,6 +27,8 @@ class CoinDataAccess {
                 status: coin.status,
                 type: coin.type,
                 serviceName: coin.serviceName,
+                nextInCooperationRing: coin.nextInCooperationRing,
+                prevInCooperationRing: coin.prevInCooperationRing,
             });
         }
         try {

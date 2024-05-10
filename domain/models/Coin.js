@@ -20,6 +20,8 @@ class Coin {
             status: this.status,
             type: this.type,
             serviceName: this.serviceName,
+            nextInCooperationRing: this.nextInCooperationRing,
+            prevInCooperationRing: this.prevInCooperationRing,
         }
     }
 }

@@ -91,9 +91,23 @@ class Trader {
 
     async createCooperationRing() {
         console.log(`creating cr`);
-        const investorCoinId = ''; // TODO
-        const coins = await selectRandomCoinsBasedOnHash(investorCoinId);
-        
+        const investorCoin = ''; // TODO
+        const coins = await selectRandomCoinsBasedOnHash(investorCoin);
+        const service = services.find(service => service.name === serviceName);
+        try {
+            console.log(`creating cooperation ring...`);
+            const cooperationRing = new CooperationRing(
+                investorCoin.ownerId,
+                coins,
+                service.numnberOfRequiredRounds, // TODO
+            );
+            const savedCooperationRingId = await TraderRepository.saveCooperationRing(cooperationRing.toDB());
+            const savedCooperationRing = await CooperationRingDA.fetch(savedCoinId);
+            TraderRepository.broadcastNewCoin(savedCoin);
+        } catch (error) {
+            console.log('could not create the coin.\nreverting balance changes...', error);
+            this.deposit(service.price);
+        }
     }
 
     createFractalRing() {
