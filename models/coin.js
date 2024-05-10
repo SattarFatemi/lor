@@ -21,7 +21,15 @@ const coinSchema = new mongoose.Schema({
     serviceName: {
         type: String,
         required: true,
-    }
+    },
+    nextInCooperationRing: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Coin',
+    },
+    prevInCooperationRing: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Coin',
+    },
 }, {timestamps: true});
 
 const Coin = mongoose.model('Coin', coinSchema);

@@ -14,7 +14,7 @@ const CoinDA = require('../data-access/coin');
 const CoinModel = require('../models/coin');
 
 
-async function selectRandomCoinBasedOnHash(selectedCoin) {
+async function selectRandomCoinsBasedOnHash(selectedCoin) {
     // TODO
     // try {
     //     const hash = sha3.sha3_256(selectedCoin);
@@ -37,6 +37,10 @@ async function selectRandomCoinBasedOnHash(selectedCoin) {
     // } catch (error) {
     //     console.log("selecting random coin", error);
     // }
+}
+
+function createCooperationRing(coins) {
+
 }
 
 
@@ -87,8 +91,9 @@ class Trader {
 
     async createCooperationRing() {
         console.log(`creating cr`);
-        await selectRandomCoinBasedOnHash();
-        // TODO
+        const investorCoinId = ''; // TODO
+        const coins = await selectRandomCoinsBasedOnHash(investorCoinId);
+        
     }
 
     createFractalRing() {
