@@ -11,7 +11,7 @@ async function connectToKafka() {
     try {
         await kafkaService.connect();
         console.log('Connected to Kafka');
-    } catch(error) {
+    } catch (error) {
         console.log(error);
         throw error;
     }
@@ -20,9 +20,9 @@ async function connectToKafka() {
 async function connectToMongo(traderId) {
     const databaseName = `trader_db_${traderId}`;
     try {
-        await MongoService.connect(databaseName);
+        await MongoService.connect(databaseName, {useNewUrlParser: true, useUnifiedTopology: true});
         console.log('Connected to Mongo');
-    } catch(error) {
+    } catch (error) {
         console.log(error);
         throw error;
     }

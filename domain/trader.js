@@ -1,4 +1,5 @@
 const {v4: uuidv4} = require('uuid');
+const sha3 = require('js-sha3');
 const Verifier = require('./verifier');
 const Validator = require('../util/validator');
 const coinStatus = require('../config/coinStatus');
@@ -10,6 +11,33 @@ const CooperationRing = require('./models/CooperationRing');
 const FractalRing = require('./models/FractalRing');
 const TraderRepository = require('../repository/trader');
 const CoinDA = require('../data-access/coin');
+const CoinModel = require('../models/coin');
+
+
+async function selectRandomCoinBasedOnHash(selectedCoin) {
+    // TODO
+    // try {
+    //     const hash = sha3.sha3_256(selectedCoin);
+    //     const truncatedHash = hash.substring(0, 8);
+    //     const hashInteger = parseInt(hash, 16);
+    //     const randomCoin = await CoinModel.findOne({
+    //         $expr: {
+    //             $gte: [
+    //                 {
+    //                     $mod: [
+    //                         {$toLong: {$toString: "$_id"}},
+    //                         hashInteger
+    //                     ]
+    //                 },
+    //                 0
+    //             ]
+    //         }
+    //     });
+    //     return randomCoin;
+    // } catch (error) {
+    //     console.log("selecting random coin", error);
+    // }
+}
 
 
 class Trader {
@@ -57,8 +85,9 @@ class Trader {
         }
     }
 
-    createCooperationRing() {
+    async createCooperationRing() {
         console.log(`creating cr`);
+        await selectRandomCoinBasedOnHash();
         // TODO
     }
 
